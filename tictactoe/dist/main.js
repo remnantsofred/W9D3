@@ -15,7 +15,7 @@
   \**********************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const View = __webpack_require__(/*! ./ttt-view */ \"./src/ttt-view.js\") // require appropriate file\nconst Game = __webpack_require__(/*! ../ttt_node/game */ \"./ttt_node/game.js\") // require appropriate file\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n  const figure = document.getElementById(\"ttt\");\n});\n\nconst playGame = new Game();\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const View = __webpack_require__(/*! ./ttt-view */ \"./src/ttt-view.js\") // require appropriate file\nconst Game = __webpack_require__(/*! ../ttt_node/game */ \"./ttt_node/game.js\") // require appropriate file\n\ndocument.addEventListener(\"DOMContentLoaded\", (event) => {\n  const figure = document.getElementById(\"ttt\");\n  const playGame = new Game();\n  const gameView = new View(playGame, figure);\n  let grid = document.getElementById(\"parent\")\n  console.log(grid)\n  grid.addEventListener(\"mouseover\", (event)=>{\n    event.stopPropagation();\n    event.target.id = \"hover\"\n  })\n  grid.addEventListener(\"mouseout\", (event)=>{\n    event.stopPropagation();\n    event.target.id = \"unhover\"\n  })\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -25,7 +25,7 @@ eval("const View = __webpack_require__(/*! ./ttt-view */ \"./src/ttt-view.js\") 
   \*************************/
 /***/ ((module) => {
 
-eval("class View {\n  constructor(game, el) {}\n  // when you construct a game, pass in the game and el you grabbed in the index.js file\n  setupBoard(el) {\n    let output = [];\n    // let ul = document.createElement('ul');\n    for(let i = 0; i < 3; i++){\n      let subarr = [];\n      let li = document.createElement('li');\n\n      for(let j = i+1; j < 3-i; j++){\n        subarr.push(el[j][i])\n        length.datasomething = [i,j];\n        ul.appendChild(li);\n      }\n      output.push(subarr)\n    }\n    \n  }\n  \n  bindEvents() {}\n\n  handleClick(e) {}\n\n  makeMove(square) {}\n\n}\n\nmodule.exports = View;\n\n\n//# sourceURL=webpack:///./src/ttt-view.js?");
+eval("class View {\n  constructor(game, el) {\n    this.game = game;\n    this.el = el;\n    this.setupBoard();\n    // this.el.innerHTML = ul\n  }\n  // when you construct a game, pass in the game and el you grabbed in the index.js file\n  setupBoard() {\n    let ul = document.createElement('ul');\n    this.el.appendChild(ul)\n    ul.id = \"parent\"\n    console.log(\"ul\")\n    console.log(this.el)\n    for(let i = 0; i < 3; i++){\n      for(let j = 0; j < 3; j++){\n        let li = document.createElement('li');\n        li.classList = \"square\"\n        li.dataset.position = [i,j];\n        ul.appendChild(li);\n      }\n    }\n  }\n\n  bindEvents() {}\n\n  handleClick(e) {}\n\n  makeMove(square) {}\n\n}\n\nmodule.exports = View;\n\n\n//# sourceURL=webpack:///./src/ttt-view.js?");
 
 /***/ }),
 
